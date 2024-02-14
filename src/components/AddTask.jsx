@@ -1,10 +1,12 @@
 import {useState} from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 const AddTask = ({taskList, setTaskList}) => {
 const [addModal, setAddModal] = useState(false)
 const [projectName, setProjectName] = useState("");
 const [taskDescription, setTaskDescription] = useState("");
 const [errorMessage, setErrorMessage] = useState("")
+
 
 const handleInput = e => {
     const {name, value} = e.target;
@@ -26,13 +28,16 @@ const handleAdd = e => {
     if (!projectName){
         setErrorMessage("Enter project name to continue")
     }else{
-        setTaskList(
-            [...taskList, {projectName, taskDescription}]
-        )
+        const newTask = {
+            id: uuidv4(),
+            projectName,
+            taskDescription,
+            timestamp: new Date().getTime()
+        }
+        setTaskList([...taskList, {projectName, newTask}])
         setAddModal(false)
         setProjectName("");
         setTaskDescription("");
-        setErrorMessage("");
     }
 
 }

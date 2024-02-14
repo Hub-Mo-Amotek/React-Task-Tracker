@@ -30,14 +30,20 @@ const EditTask = ({task, taskList, setTaskList}) => {
 }
 
 const handleBtn = () => {
-    setEditModal(true)
-    setEditBtn(false)
+    editBtn ? (
+        setEditModal(true),
+        setEditBtn(false)
+    ) : (
+        setEditModal(false),
+        setEditBtn(true)
+    );
+
 }
 
     return (
         <>
         {editBtn ? (
-          <button className="bg-gray-400 text-white text-sm-uppercase font-semibold py-1 px-2 rounded"
+          <button className="bg-gray-400 hover:opacity-70 text-white text-sm-uppercase font-semibold py-1 px-2 rounded"
           onClick={handleBtn}
           display="none">Edit</button>
         ) : null}
@@ -52,7 +58,7 @@ const handleBtn = () => {
                         Edit task
                     </h3>
                     <button className="px-1  text-red-400 float-right text-3xl leading-none font-semibold block" 
-                            onClick={() => setEditModal(false)}>
+                            onClick={handleBtn}>
                         x
                     </button>
                     </div >
